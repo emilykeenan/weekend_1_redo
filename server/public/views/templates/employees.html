@@ -12,13 +12,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="employeeData in employees.employees">
+    <tr ng-repeat="employeeData in employees.employees" class="{{employeeData.status}}">
       <td>{{employeeData.first_name}}</td>
       <td>{{employeeData.last_name}}</td>
       <td>{{employeeData.employee_id}}</td>
       <td>{{employeeData.job_title}}</td>
       <td>{{employeeData.yearly_salary}}</td>
-      <td><button class="status_button">{{employeeData.status}}</button></td>
+      <td><button class="status_button" ng-click="employees.updateEmployee(employeeData)">{{employeeData.status}}</button></td>
     </tr>
   </tbody>
 </table>
