@@ -7,6 +7,11 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'EmployeesController',
     controllerAs: 'employees'
   })
+  .when('/budget', {
+    templateUrl: '/views/templates/budget.html',
+    controller: 'BudgetsController',
+    controllerAs: 'budget'
+  })
   .otherwise({
     redirectTo: 'employees'
   });
@@ -66,4 +71,36 @@ app.controller("EmployeesController", ["$http", function($http){
 
 
 
+}]); // end employee controller
+
+app.controller("BudgetsController", ["$http", function($http){
+
+  var self = this;
+
+  self.budgets = [];
+  self.newBudget = {}
+
+  getBudgets();
+  console.log("Array of budgets", self.budgets);
+
+
+
+  function getBudgets() {
+    $http.get('/budget')
+    .then(function(response) {
+      // console.log(response.data);
+      self.budgets = response.data;
+      // console.log("Client side", self.customers);
+    });
+  };
+
+  self.addBudget = function() {
+  console.log('new employee: ', self.newBudget);
+  $http.post('/budget', self.newBudget)
+    .then(function(response) {
+      console.log('POST finished.');
+      getBudgets();
+      self.newBudget = {}
+    });
+}
 }]);

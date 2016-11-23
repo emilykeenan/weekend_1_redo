@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var employees = require('./routes/employees')
+var budget = require('./routes/budget')
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -10,6 +11,7 @@ app.use(bodyParser.json());
 
 // Our routes
 app.use('/employees', employees);
+app.use('/budget', budget);
 
 // serve static files
 app.use(express.static(path.resolve('./server/public')));
