@@ -59,4 +59,32 @@ router.put('/:id', function(req, res) {
 
 }); // end route
 
+router.post('/', function(req, res) {
+  var newEmployee = req.body;
+  console.log(newEmployee);
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query(
+      'INSERT INTO employees (first_name, last_name, employee_id, job_title, yearly_salary, status) ' +
+      'VALUES ($1, $2, $3, $4, $5, $6)',
+      [newEmployee.first_name, newEmployee.last_name, newEmployee.employee_id, newEmployee.job_title, newEmployee.yearly_salary, newEmployee.status],
+      function(err, result) {
+        done();
+
+        if(err) {
+          console.log('insert query error: ', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+
+  });
+
+});
+
 module.exports = router;

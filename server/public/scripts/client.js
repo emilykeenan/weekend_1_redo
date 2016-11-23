@@ -17,6 +17,7 @@ app.controller("EmployeesController", ["$http", function($http){
   var self = this;
   self.employees = [];
   self.avgSalaryOutput = 0;
+  self.newEmployee = {};
 
   getEmployees();
 
@@ -51,6 +52,16 @@ app.controller("EmployeesController", ["$http", function($http){
       getEmployees();
     });
   };  // updateEmployee function ends
+
+  self.addEmployee = function() {
+    self.newEmployee.status = 'active';
+  console.log('new employee: ', self.newEmployee);
+  $http.post('/employees', self.newEmployee)
+    .then(function(response) {
+      console.log('POST finished. Get employees again.');
+      getEmployees();
+    });
+}
 
 
 
