@@ -25,7 +25,7 @@
           <input type="number" ng-model="employees.newEmployee.yearly_salary" name="yearly_salary" class="form-control"/>
         </div>
 
-        <button class="btn btn-default" ng-click="employees.addEmployee()">Submit Employee</button>
+        <button id="employeeSubmit" class="btn btn-default" ng-click="employees.addEmployee()">Submit Employee</button>
       </form>
 
 <h2>Employees</h2>
@@ -37,19 +37,17 @@
       <th>Employee ID</th>
       <th>Job Title</th>
       <th>Yearly Salary</th>
-      <th>Budget</th>
       <th>Status</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="employeeData in employees.employees" class="{{employeeData.status}}">
+    <tr ng-repeat="employeeData in employees.employees" class="{{employeeData.status_class}}">
       <td>{{employeeData.first_name}}</td>
       <td>{{employeeData.last_name}}</td>
       <td>{{employeeData.employee_id}}</td>
       <td>{{employeeData.job_title}}</td>
       <td>{{employeeData.yearly_salary}}</td>
-      <td>{{employeeData.budget}}</td>
-      <td><button class="status_button" ng-click="employees.updateEmployee(employeeData)">{{employeeData.status}}</button></td>
+      <td><button class="status_button btn xsmall" ng-click="employees.updateEmployee(employeeData)">{{employeeData.status}}</button></td>
     </tr>
   </tbody>
 </table>

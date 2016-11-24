@@ -1,16 +1,13 @@
 <div ng-controller="BudgetsController" class="container">
 
-  <form id="budgetForm">
-        <div class="form-group">
+  <form id="budgetForm" class="row">
+    <div id="dateSelect">
           <label for="month">Month:</label>
-          <select class="selectpicker" ng-model="budget.newBudget.month" ng-options="month as month for month in budget.months"></select>
-        </div>
+          <select ng-model="budget.newBudget.month" ng-options="month as month for month in budget.months"></select>
 
-        <div class="form-group">
           <label for="year">Year:</label>
-          <select class="selectpicker" ng-model="budget.newBudget.year" ng-options="year as year for year in budget.years"></select>
-        </div>
-
+          <select ng-model="budget.newBudget.year" ng-options="year as year for year in budget.years"></select>
+</div>
         <div class="form-group">
           <label for="budget">Monthly Budget:</label>
           <input type="number" ng-model="budget.newBudget.budget" name="budget" class="form-control"/>

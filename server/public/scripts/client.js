@@ -39,6 +39,13 @@ app.controller("EmployeesController", ["$http", function($http){
       self.avgSalaryOutput = 0;
       for (var i = 0; i < self.employees.length; i++) {
         var employee = self.employees[i];
+
+        if (employee.status == 'active') {
+          employee.status_class = 'current_employee';
+        } else if (employee.status == 'inactive') {
+          employee.status_class = 'not_employee';
+        }
+
         if (employee.status=='active') {
         self.avgSalaryOutput += (employee.yearly_salary / 12);
         }
