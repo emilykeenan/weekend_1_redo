@@ -3,12 +3,12 @@
   <form id="budgetForm">
         <div class="form-group">
           <label for="month">Month:</label>
-          <input type="text" ng-model="budget.newBudget.month" name="month" class="form-control" />
+          <select class="selectpicker" ng-model="budget.newBudget.month" ng-options="month as month for month in budget.months"></select>
         </div>
 
         <div class="form-group">
           <label for="year">Year:</label>
-          <input type="number" ng-model="budget.newBudget.year" name="year"  class="form-control"/>
+          <select class="selectpicker" ng-model="budget.newBudget.year" ng-options="year as year for year in budget.years"></select>
         </div>
 
         <div class="form-group">
@@ -16,7 +16,7 @@
           <input type="number" ng-model="budget.newBudget.budget" name="budget" class="form-control"/>
         </div>
 
-        <button class="btn btn-default" ng-click="budget.addBudget()">Submit Budget</button>
+        <button class="btn btn-default" ng-click="budget.addBudget()">Update Budget</button>
       </form>
 
 

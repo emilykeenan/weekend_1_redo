@@ -100,7 +100,13 @@ app.controller("BudgetsController", ["$http", function($http){
   var self = this;
 
   self.budgets = [];
-  self.newBudget = {}
+  self.newBudget = {};
+  self.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  self.years = [];
+
+  for (var i = 1990; i <= 2080; i++) {
+   self.years.push(i);
+ }
 
   getBudgets();
   console.log("Array of budgets", self.budgets);
