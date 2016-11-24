@@ -75,6 +75,7 @@ app.controller("EmployeesController", ["$http", function($http){
     $http.put('/employees/' + id, employee)
     .then(function(response) {
       getEmployees();
+      getMonthlyBudget();
     });
   };  // updateEmployee function ends
 
