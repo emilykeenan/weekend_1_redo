@@ -22,13 +22,19 @@ app.controller("EmployeesController", ["$http", function($http){
   var self = this;
   self.employees = [];
   self.avgSalaryOutput = 0;
+  self.avgSalaryOutputDisplay = '';
   self.newEmployee = {};
+  self.monthlyBudget = 0;
+  self.budgetData = [];
+  self.budgetMessage = '';
 
   getEmployees();
+  getMonthlyBudget();
 
   function getEmployees() {
     $http.get('/employees')
     .then(function(response) {
+      console.log(response.data);
       self.employees = response.data;
       self.avgSalaryOutput = 0;
       for (var i = 0; i < self.employees.length; i++) {
@@ -37,7 +43,21 @@ app.controller("EmployeesController", ["$http", function($http){
         self.avgSalaryOutput += (employee.yearly_salary / 12);
         }
       }
-      self.avgSalaryOutput = self.avgSalaryOutput.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+      self.avgSalaryOutputDisplay = self.avgSalaryOutput.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+    });
+  };  // get Employees function ends
+
+  function getMonthlyBudget() {
+    $http.get('/employees/budget')
+    .then(function(response) {
+      console.log(response.data);
+      self.budgetData = response.data;
+      self.monthlyBudget = self.budgetData[0].budget;
+      if (self.monthlyBudget >= self.avgSalaryOutput) {
+        self.budgetMessage = 'You are in budget!';
+      } else {
+        self.budgetMessage = 'You are not in budget! Better make some staff changes.';
+      }
     });
   };  // get Employees function ends
 

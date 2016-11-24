@@ -28,6 +28,56 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/', function(req, res) {
+  console.log('reached get route!')
+  // get customers from DB
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query('SELECT * FROM employees ORDER BY last_name;',
+    function(err, result) {
+      done(); // close the connection.
+
+      if(err) {
+        console.log('select query error: ', err);
+        res.sendStatus(500);
+      }
+      // console.log(result.rows);
+      res.send(result.rows);
+
+    });
+
+  });
+});
+
+router.get('/budget', function(req, res) {
+  console.log('reached get route!')
+  // get customers from DB
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query('SELECT * FROM salary_budgets WHERE id=(SELECT max(id) FROM salary_budgets);',
+    function(err, result) {
+      done(); // close the connection.
+
+      if(err) {
+        console.log('select query error: ', err);
+        res.sendStatus(500);
+      }
+      // console.log(result.rows);
+      res.send(result.rows);
+
+    });
+
+  });
+});
+
 router.put('/:id', function(req, res) {
   console.log(req.body);
   employeeID = req.params.id;

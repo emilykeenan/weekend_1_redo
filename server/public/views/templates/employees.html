@@ -37,6 +37,7 @@
       <th>Employee ID</th>
       <th>Job Title</th>
       <th>Yearly Salary</th>
+      <th>Budget</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -47,9 +48,11 @@
       <td>{{employeeData.employee_id}}</td>
       <td>{{employeeData.job_title}}</td>
       <td>{{employeeData.yearly_salary}}</td>
+      <td>{{employeeData.budget}}</td>
       <td><button class="status_button" ng-click="employees.updateEmployee(employeeData)">{{employeeData.status}}</button></td>
     </tr>
   </tbody>
 </table>
-<h3>The salary output per month is {{employees.avgSalaryOutput}}</h3>
+<h3>The salary output per month is {{employees.avgSalaryOutputDisplay}}</h3>
+<h3>{{employees.budgetMessage}}</h3>
 </div>
