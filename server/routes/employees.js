@@ -3,9 +3,10 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/weekend5';
 
+// route to get employees from database
 router.get('/', function(req, res) {
   console.log('reached get route!')
-  // get customers from DB
+  // get employees from DB
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
@@ -28,31 +29,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/', function(req, res) {
-  console.log('reached get route!')
-  // get customers from DB
-  pg.connect(connectionString, function(err, client, done) {
-    if(err) {
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-
-    client.query('SELECT * FROM employees ORDER BY last_name;',
-    function(err, result) {
-      done(); // close the connection.
-
-      if(err) {
-        console.log('select query error: ', err);
-        res.sendStatus(500);
-      }
-      // console.log(result.rows);
-      res.send(result.rows);
-
-    });
-
-  });
-});
-
+// route to get most recently added budget from database
 router.get('/budget', function(req, res) {
   console.log('reached get route!')
   // get customers from DB
@@ -78,6 +55,7 @@ router.get('/budget', function(req, res) {
   });
 });
 
+// route to update employee status
 router.put('/:id', function(req, res) {
   console.log(req.body);
   employeeID = req.params.id;
@@ -109,6 +87,7 @@ router.put('/:id', function(req, res) {
 
 }); // end route
 
+// route to add new employee to database
 router.post('/', function(req, res) {
   var newEmployee = req.body;
   console.log(newEmployee);

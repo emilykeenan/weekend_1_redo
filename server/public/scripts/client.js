@@ -17,6 +17,7 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
+// begin employees controller
 app.controller("EmployeesController", ["$http", function($http){
 
   var self = this;
@@ -28,9 +29,11 @@ app.controller("EmployeesController", ["$http", function($http){
   self.budgetData = [];
   self.budgetMessage = '';
 
+  // calling getEmployees and getMonthlyBudget to get both on the DOM at load
   getEmployees();
   getMonthlyBudget();
 
+  // functon to get employee data from the database and calculate average salary output
   function getEmployees() {
     $http.get('/employees')
     .then(function(response) {
@@ -40,12 +43,14 @@ app.controller("EmployeesController", ["$http", function($http){
       for (var i = 0; i < self.employees.length; i++) {
         var employee = self.employees[i];
 
+        // checking employee status to set separate class for use in CSS document
         if (employee.status == 'active') {
           employee.status_class = 'current_employee';
         } else if (employee.status == 'inactive') {
           employee.status_class = 'not_employee';
         }
 
+        // calculating average salary output monthly for active employees
         if (employee.status=='active') {
         self.avgSalaryOutput += (employee.yearly_salary / 12);
         }
@@ -54,6 +59,7 @@ app.controller("EmployeesController", ["$http", function($http){
     });
   };  // get Employees function ends
 
+  // function to get budgets from the DOM and check to ensure that our avgSalaryOutput monthly is within budget
   function getMonthlyBudget() {
     $http.get('/employees/budget')
     .then(function(response) {
@@ -68,6 +74,7 @@ app.controller("EmployeesController", ["$http", function($http){
     });
   };  // get Employees function ends
 
+  //function to update the active/inactive status of employee
   self.updateEmployee = function(employee) {
     console.log(employee);
     var id = employee.id
@@ -86,6 +93,7 @@ app.controller("EmployeesController", ["$http", function($http){
     });
   };  // updateEmployee function ends
 
+  // function to add employee to the database, setting class as active
   self.addEmployee = function() {
     self.newEmployee.status = 'active';
   console.log('new employee: ', self.newEmployee);
@@ -102,6 +110,7 @@ app.controller("EmployeesController", ["$http", function($http){
 
 }]); // end employee controller
 
+// begin budget controller
 app.controller("BudgetsController", ["$http", function($http){
 
   var self = this;
@@ -115,11 +124,12 @@ app.controller("BudgetsController", ["$http", function($http){
    self.years.push(i);
  }
 
+ // calling getBudgets to get list of budget history
   getBudgets();
   console.log("Array of budgets", self.budgets);
 
 
-
+  // function to get budget history from database
   function getBudgets() {
     $http.get('/budget')
     .then(function(response) {
@@ -129,6 +139,7 @@ app.controller("BudgetsController", ["$http", function($http){
     });
   };
 
+  // function to update budget in the database
   self.addBudget = function() {
   console.log('new employee: ', self.newBudget);
   $http.post('/budget', self.newBudget)

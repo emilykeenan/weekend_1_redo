@@ -3,9 +3,10 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/weekend5';
 
+// route to get budgets from databse
 router.get('/', function(req, res) {
   console.log('reached get route!')
-  // get customers from DB
+  // get budgets from DB
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
@@ -28,6 +29,7 @@ router.get('/', function(req, res) {
   });
 }); // end get request
 
+// route to add new budget from database
 router.post('/', function(req, res) {
   var newBudget = req.body;
   console.log(newBudget);
